@@ -127,6 +127,65 @@ if (connectDebit) {
   });
 }
 
+const addToCartBtn = document.getElementById('add-to-cart');
+const buyNowBtn = document.getElementById('buy-now');
+const placeOrderBtn = document.getElementById('place-order');
+const cartBody = document.querySelector('.drawer-body');
+const drawerTotalAmount = document.querySelector('.drawer-total strong');
+
+const cartState = {
+  items: [],
+  total: 0,
+};
+
+const renderCart = () => {
+  if (!cartBody) return;
+  if (cartState.items.length === 0) {
+    cartBody.innerHTML = '<p class="empty-cart">Keranjang kosong. Tambahkan produk terlebih dahulu.</p>';
+    if (drawerTotalAmount) drawerTotalAmount.textContent = '$0';
+    return;
+  }
+
+  cartBody.innerHTML = cartState.items
+    .map(
+      (item) =>
+        `<div class="cart-item"><div class="cart-thumb"></div><div><p>${item.name}</p><span>$${item.price}</span></div></div>`
+    )
+    .join('');
+
+  if (drawerTotalAmount) drawerTotalAmount.textContent = `$${cartState.total}`;
+};
+
+const addItemToCart = (item) => {
+  cartState.items.push(item);
+  cartState.total += item.price;
+  renderCart();
+  openDrawer();
+};
+
+if (addToCartBtn) {
+  addToCartBtn.addEventListener('click', () => {
+    addItemToCart({ name: 'Golden Velvet Cake', price: 86 });
+  });
+}
+
+if (buyNowBtn) {
+  buyNowBtn.addEventListener('click', () => {
+    addItemToCart({ name: 'Golden Velvet Cake', price: 86 });
+    setTimeout(() => {
+      window.location.href = 'checkout.html';
+    }, 300);
+  });
+}
+
+if (placeOrderBtn) {
+  placeOrderBtn.addEventListener('click', () => {
+    window.alert('Pesanan berhasil dibuat! Terima kasih telah berbelanja.');
+  });
+}
+
+renderCart();
+
 const sections = document.querySelectorAll('section');
 const revealObserver = new IntersectionObserver(
   (entries) => {
