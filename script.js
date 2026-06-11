@@ -9,6 +9,60 @@ const promoCountdown = document.getElementById('promo-countdown');
 const previewCard = document.getElementById('preview-card');
 const cakeForm = document.getElementById('cake-form');
 
+// SVG Images
+const svgImages = {
+  'product-1': '<svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="prod1" cx="35%" cy="25%"><stop offset="0%" style="stop-color:#fde7df;stop-opacity:1" /><stop offset="100%" style="stop-color:#eabfa4;stop-opacity:1" /></radialGradient></defs><rect width="280" height="280" fill="url(#prod1)"/><circle cx="140" cy="160" r="80" fill="#c8866b" opacity="0.9"/><circle cx="140" cy="150" r="75" fill="#d9977f"/><ellipse cx="140" cy="140" rx="70" ry="65" fill="#e8b0a0"/><circle cx="140" cy="130" r="60" fill="rgba(255,220,200,0.6)"/><circle cx="160" cy="110" r="12" fill="#d4af37"/><circle cx="120" cy="115" r="10" fill="#d4af37" opacity="0.8"/></svg>',
+  'product-2': '<svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="prod2" cx="40%" cy="20%"><stop offset="0%" style="stop-color:#fff7ed;stop-opacity:1" /><stop offset="100%" style="stop-color:#d9b38f;stop-opacity:1" /></radialGradient></defs><rect width="280" height="280" fill="url(#prod2)"/><ellipse cx="140" cy="170" rx="75" ry="40" fill="#c79d6f"/><ellipse cx="140" cy="155" rx="70" ry="35" fill="#d9b08f"/><ellipse cx="140" cy="140" rx="65" ry="32" fill="#e8c9b5"/><path d="M 110 130 Q 140 100 170 130 Q 170 150 140 160 Q 110 150 110 130" fill="rgba(255,255,200,0.5)"/><circle cx="150" cy="120" r="8" fill="#d4af37"/><circle cx="130" cy="125" r="7" fill="#f0d78f"/></svg>',
+  'product-3': '<svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="prod3" cx="40%" cy="25%"><stop offset="0%" style="stop-color:#f4d6cd;stop-opacity:1" /><stop offset="100%" style="stop-color:#934f2b;stop-opacity:1" /></radialGradient></defs><rect width="280" height="280" fill="url(#prod3)"/><circle cx="140" cy="170" r="85" fill="#6b3e22"/><circle cx="140" cy="160" r="80" fill="#8b4f2a"/><circle cx="140" cy="150" r="75" fill="#a8654d"/><circle cx="140" cy="140" r="70" fill="#c98266"/><ellipse cx="140" cy="125" rx="65" ry="60" fill="rgba(50,20,10,0.3)"/><circle cx="165" cy="105" r="9" fill="#d4af37"/><circle cx="120" cy="110" r="8" fill="#d4af37" opacity="0.7"/></svg>',
+  'product-4': '<svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="prod4" cx="38%" cy="22%"><stop offset="0%" style="stop-color:#fbe9d8;stop-opacity:1" /><stop offset="100%" style="stop-color:#c2956f;stop-opacity:1" /></radialGradient></defs><rect width="280" height="280" fill="url(#prod4)"/><ellipse cx="140" cy="175" rx="80" ry="38" fill="#a8755f"/><ellipse cx="140" cy="160" rx="75" ry="35" fill="#c18c6f"/><ellipse cx="140" cy="145" rx="70" ry="32" fill="#d9a889"/><ellipse cx="140" cy="130" rx="65" ry="30" fill="#e8c4b5"/><circle cx="155" cy="105" r="10" fill="#9d5a3a"/><circle cx="125" cy="110" r="9" fill="#a8654d"/><circle cx="140" cy="115" r="8" fill="#d4af37" opacity="0.9"/></svg>',
+  'hero-product': '<svg viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="cake-gradient" cx="40%" cy="20%"><stop offset="0%" style="stop-color:#fff4ee;stop-opacity:1" /><stop offset="70%" style="stop-color:#d29a6f;stop-opacity:1" /></radialGradient></defs><rect width="600" height="520" fill="url(#cake-gradient)"/><ellipse cx="300" cy="380" rx="120" ry="35" fill="#c89469" opacity="0.8"/><ellipse cx="300" cy="340" rx="110" ry="32" fill="#d4a574"/><ellipse cx="300" cy="300" rx="100" ry="30" fill="#ddb084"/><ellipse cx="300" cy="260" rx="90" ry="28" fill="#e8c4a0"/><ellipse cx="300" cy="240" rx="85" ry="35" fill="rgba(255,255,255,0.3)"/><circle cx="340" cy="280" r="8" fill="#d4af37" opacity="0.8"/><circle cx="260" cy="300" r="6" fill="#d4af37" opacity="0.7"/><circle cx="320" cy="220" r="7" fill="#d4af37" opacity="0.75"/></svg>'
+};
+
+const getSvgDataUrl = (svgString) => {
+  const blob = new Blob([svgString], { type: 'image/svg+xml' });
+  return URL.createObjectURL(blob);
+};
+
+const applyProductImages = () => {
+  // Product photos
+  document.querySelectorAll('.product-photo-1').forEach(el => {
+    el.style.backgroundImage = `url('${getSvgDataUrl(svgImages['product-1'])}')`;
+  });
+  document.querySelectorAll('.product-photo-2').forEach(el => {
+    el.style.backgroundImage = `url('${getSvgDataUrl(svgImages['product-2'])}')`;
+  });
+  document.querySelectorAll('.product-photo-3').forEach(el => {
+    el.style.backgroundImage = `url('${getSvgDataUrl(svgImages['product-3'])}')`;
+  });
+  document.querySelectorAll('.product-photo-4').forEach(el => {
+    el.style.backgroundImage = `url('${getSvgDataUrl(svgImages['product-4'])}')`;
+  });
+  
+  // Hero photo
+  const heroPhoto = document.querySelector('.hero-photo');
+  if (heroPhoto) {
+    heroPhoto.style.backgroundImage = `url('${getSvgDataUrl(svgImages['hero-product'])}')`;
+  }
+  
+  // Gallery main
+  const galleryMain = document.querySelector('.gallery-main');
+  if (galleryMain) {
+    galleryMain.style.backgroundImage = `url('${getSvgDataUrl(svgImages['product-1'])}')`;
+  }
+  
+  // Cart thumbs
+  document.querySelectorAll('.cart-thumb').forEach(thumb => {
+    thumb.style.backgroundImage = `url('${getSvgDataUrl(svgImages['product-1'])}')`;
+  });
+};
+
+// Run on page load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', applyProductImages);
+} else {
+  setTimeout(applyProductImages, 100);
+}
+
 let reviewIndex = 0;
 const reviewCount = reviewTrack?.children?.length || 0;
 
