@@ -457,6 +457,22 @@ input[type='file'] {
   background: rgba(255, 255, 252, 0.95);
 }
 
+input[type='number'] {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  padding: 16px 18px;
+  background: rgba(255, 255, 252, 0.95);
+  text-align: center;
+}
+
+.empty-cart {
+  padding: 24px;
+  text-align: center;
+  color: var(--muted);
+  font-style: italic;
+}
+
 .file-row input {
   padding: 12px 18px;
 }

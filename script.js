@@ -148,7 +148,11 @@ const cartState = {
 };
 
 const renderCart = () => {
-  if (!cartBody) return;
+  if (!cartBody) {
+    console.warn('Cart body element not found');
+    return;
+  }
+  
   if (cartState.items.length === 0) {
     cartBody.innerHTML = '<p class="empty-cart">Keranjang kosong. Tambahkan produk terlebih dahulu.</p>';
     if (drawerTotalAmount) drawerTotalAmount.textContent = '$0';
@@ -166,6 +170,11 @@ const renderCart = () => {
 };
 
 const addItemToCart = (item) => {
+  if (!item || !item.name || !item.price) {
+    console.error('Invalid item:', item);
+    return;
+  }
+  
   cartState.items.push(item);
   cartState.total += item.price;
   renderCart();
@@ -173,23 +182,66 @@ const addItemToCart = (item) => {
 };
 
 if (addToCartBtn) {
-  addToCartBtn.addEventListener('click', () => {
+  addToCartBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     addItemToCart({ name: 'Golden Velvet Cake', price: 86 });
   });
 }
 
 if (buyNowBtn) {
-  buyNowBtn.addEventListener('click', () => {
+  buyNowBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     addItemToCart({ name: 'Golden Velvet Cake', price: 86 });
     setTimeout(() => {
       window.location.href = 'checkout.html';
-    }, 300);
+    }, 500);
   });
 }
 
 if (placeOrderBtn) {
-  placeOrderBtn.addEventListener('click', () => {
-    window.alert('Pesanan berhasil dibuat! Terima kasih telah berbelanja.');
+  placeOrderBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    const name = document.getElementById('name')?.value;
+    const address = document.getElementById('address')?.value;
+    const city = document.getElementById('city')?.value;
+    const phone = document.getElementById('phone')?.value;
+    
+    if (!name || !address || !city || !phone) {
+      alert('Mohon lengkapi semua informasi pengiriman.');
+      return;
+    }
+    
+    const activePayment = document.querySelector('.payment-option.active');
+    if (!activePayment) {
+      alert('Pilih metode pembayaran terlebih dahulu.');
+      return;
+    }
+    
+    const paymentMethod = activePayment.textContent.trim();
+    
+    // If Debit Digital selected, check connection
+    if (paymentMethod === 'Debit Digital') {
+      const connectBtn = document.getElementById('connect-debit');
+      if (connectBtn?.textContent.includes('Hubungkan') || !connectBtn?.textContent.includes('Terhubung')) {
+        alert('Hubungkan akun Debit Digital terlebih dahulu.');
+        return;
+      }
+    }
+    
+    // Show success message
+    alert(`Pesanan berhasil dibuat!\n\nNama: ${name}\nAlamat: ${address}, ${city}\nMetode: ${paymentMethod}\n\nTerima kasih telah berbelanja di Bakerry Naichii!`);
+    
+    // Reset form
+    document.getElementById('name').value = '';
+    document.getElementById('address').value = '';
+    document.getElementById('city').value = '';
+    document.getElementById('phone').value = '';
+    
+    // Redirect after 1 second
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 1000);
   });
 }
 
