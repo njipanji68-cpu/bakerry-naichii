@@ -84,6 +84,49 @@ if (cakeForm) {
   cakeForm.addEventListener('input', updatePreview);
 }
 
+const timeButtons = document.querySelectorAll('.time-option');
+const shippingOptions = document.querySelectorAll('.shipping-option');
+const paymentOptions = document.querySelectorAll('.payment-option');
+const debitPanel = document.getElementById('debit-digital-panel');
+const connectDebit = document.getElementById('connect-debit');
+
+const activateGroup = (buttons, activeButton) => {
+  buttons.forEach((button) => button.classList.remove('active'));
+  activeButton.classList.add('active');
+};
+
+if (timeButtons.length) {
+  timeButtons.forEach((button) => {
+    button.addEventListener('click', () => activateGroup(timeButtons, button));
+  });
+}
+
+if (shippingOptions.length) {
+  shippingOptions.forEach((option) => {
+    option.addEventListener('click', () => activateGroup(shippingOptions, option));
+  });
+}
+
+if (paymentOptions.length) {
+  paymentOptions.forEach((option) => {
+    option.addEventListener('click', () => {
+      activateGroup(paymentOptions, option);
+      if (debitPanel) {
+        debitPanel.classList.toggle('payment-detail-hidden', option.textContent.trim() !== 'Debit Digital');
+      }
+    });
+  });
+}
+
+if (connectDebit) {
+  connectDebit.addEventListener('click', (event) => {
+    event.preventDefault();
+    connectDebit.textContent = 'Akun Debit Digital Terhubung';
+    connectDebit.classList.add('btn-primary');
+    connectDebit.classList.remove('btn-secondary');
+  });
+}
+
 const sections = document.querySelectorAll('section');
 const revealObserver = new IntersectionObserver(
   (entries) => {
