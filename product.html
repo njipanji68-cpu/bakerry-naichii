@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signature Cake | Bakerry Naichii</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-ring">
+          <span class="brand-mark">B</span>
+        </div>
+        <div class="brand-copy">
+          <p class="eyebrow">Premium Cake Studio</p>
+          <h1>Signature Cake</h1>
+        </div>
+        <nav class="nav-links" aria-label="Product navigation">
+          <a href="index.html">Home</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#details">Details</a>
+        </nav>
+        <div class="header-actions">
+          <a class="btn btn-secondary" href="#details">Buy Now</a>
+          <button class="btn btn-primary" id="open-cart">Cart</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="product-hero">
+          <div class="product-gallery" id="gallery">
+            <div class="gallery-main"></div>
+            <div class="gallery-thumbs">
+              <button class="thumb active"></button>
+              <button class="thumb"></button>
+              <button class="thumb"></button>
+            </div>
+          </div>
+          <aside class="purchase-panel">
+            <span class="eyebrow">Featured Selection</span>
+            <h2>Golden Velvet Cake</h2>
+            <div class="product-info-line">
+              <span>★★★★★</span>
+              <span>In stock</span>
+            </div>
+            <p class="product-copy">
+              Artfully layered cake infused with velvety caramel, rose crème, and golden accents.
+            </p>
+            <div class="price-tag">
+              <span>Starting at</span>
+              <strong>$86</strong>
+            </div>
+            <div class="quantity-panel">
+              <button class="qty-btn" type="button">-</button>
+              <input type="number" value="1" min="1" />
+              <button class="qty-btn" type="button">+</button>
+            </div>
+            <div class="purchase-actions">
+              <button class="btn btn-primary">Add to Cart</button>
+              <button class="btn btn-ghost">Buy Now</button>
+            </div>
+            <button class="btn btn-secondary outline">Wishlist</button>
+          </aside>
+        </section>
+
+        <section class="section" id="details">
+          <div class="section-heading">
+            <p class="eyebrow">Product Details</p>
+            <h3>Legendary Cake Experience</h3>
+          </div>
+          <div class="product-details-grid">
+            <div class="detail-card">
+              <h4>Description</h4>
+              <p>
+                This premium cake blends silky chocolate layers, aromatic rose
+                cream, and crisp gold leaf for a luxurious and memorable
+                celebration.
+              </p>
+            </div>
+            <div class="detail-card">
+              <h4>Ingredients</h4>
+              <p>Fresh cream, Belgian chocolate, gluten-free sponge, edible gold.</p>
+            </div>
+            <div class="detail-card">
+              <h4>Allergy Info</h4>
+              <p>Contains dairy, eggs, nuts, and gluten. Made in a shared facility.</p>
+            </div>
+            <div class="detail-card">
+              <h4>Delivery</h4>
+              <p>Same-day delivery available for selected areas with premium packaging.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping cart drawer">
+      <div class="drawer-header">
+        <div>
+          <p class="eyebrow">Your cart</p>
+          <h3>Luxury Orders</h3>
+        </div>
+        <button class="close-drawer" id="close-cart" aria-label="Close cart">×</button>
+      </div>
+      <div class="drawer-body">
+        <div class="cart-item">
+          <div class="cart-thumb"></div>
+          <div>
+            <p>Golden Velvet Cake</p>
+            <span>$86</span>
+          </div>
+        </div>
+      </div>
+      <div class="drawer-footer">
+        <div class="drawer-total">
+          <span>Total</span>
+          <strong>$86</strong>
+        </div>
+        <a class="btn btn-primary" href="checkout.html">Continue to Checkout</a>
+      </div>
+    </aside>
+
+    <div class="overlay" id="drawer-overlay"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

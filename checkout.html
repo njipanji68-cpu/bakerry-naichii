@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout | Bakerry Naichii</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-ring">
+          <span class="brand-mark">B</span>
+        </div>
+        <div class="brand-copy">
+          <p class="eyebrow">Seamless Checkout</p>
+          <h1>Order Review</h1>
+        </div>
+        <nav class="nav-links" aria-label="Checkout navigation">
+          <a href="index.html">Home</a>
+          <a href="product.html">Product</a>
+          <a href="#order">Review</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="checkout-shell" id="order">
+          <div class="checkout-flow">
+            <div class="progress-bar">
+              <div class="progress-step active">Delivery</div>
+              <div class="progress-step">Time</div>
+              <div class="progress-step">Shipping</div>
+              <div class="progress-step">Payment</div>
+            </div>
+            <div class="checkout-panel">
+              <div class="checkout-card">
+                <h2>Delivery Address</h2>
+                <div class="form-row">
+                  <label for="name">Full Name</label>
+                  <input id="name" placeholder="Nama lengkap" />
+                </div>
+                <div class="form-row">
+                  <label for="address">Address</label>
+                  <input id="address" placeholder="Jalan, kota, kode pos" />
+                </div>
+                <div class="form-grid">
+                  <div class="form-row">
+                    <label for="city">City</label>
+                    <input id="city" placeholder="Kota" />
+                  </div>
+                  <div class="form-row">
+                    <label for="phone">Phone</label>
+                    <input id="phone" placeholder="+62 812 3456 7890" />
+                  </div>
+                </div>
+              </div>
+              <div class="checkout-card">
+                <h2>Delivery Time</h2>
+                <div class="time-grid">
+                  <button class="time-option active">Morning</button>
+                  <button class="time-option">Afternoon</button>
+                  <button class="time-option">Evening</button>
+                </div>
+              </div>
+              <div class="checkout-card">
+                <h2>Shipping Method</h2>
+                <div class="shipping-option active">
+                  <div>
+                    <strong>Premium Delivery</strong>
+                    <p>Fast delivery with insulated gift packaging.</p>
+                  </div>
+                  <span>$12</span>
+                </div>
+                <div class="shipping-option">
+                  <div>
+                    <strong>Standard Delivery</strong>
+                    <p>Economy delivery within 2 days.</p>
+                  </div>
+                  <span>$6</span>
+                </div>
+              </div>
+              <div class="checkout-card">
+                <h2>Payment Method</h2>
+                <div class="payment-grid">
+                  <button class="payment-option active">Credit Card</button>
+                  <button class="payment-option">GoPay</button>
+                  <button class="payment-option">OVO</button>
+                  <button class="payment-option">Dana</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <aside class="order-summary">
+            <div class="summary-card">
+              <span class="eyebrow">Order overview</span>
+              <h3>Golden Velvet Cake</h3>
+              <div class="summary-line">
+                <span>Premium Cake</span><strong>$86</strong>
+              </div>
+              <div class="summary-line">
+                <span>Delivery</span><strong>$12</strong>
+              </div>
+              <hr />
+              <div class="summary-total">
+                <span>Total</span><strong>$98</strong>
+              </div>
+              <button class="btn btn-primary">Place Order</button>
+              <div class="payment-countdown">
+                <p>Payment timer</p>
+                <strong>05:00</strong>
+              </div>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

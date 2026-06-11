@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Bakerry Naichii</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-ring">
+          <span class="brand-mark">B</span>
+        </div>
+        <div class="brand-copy">
+          <p class="eyebrow">Admin Control</p>
+          <h1>Merchant Dashboard</h1>
+        </div>
+        <nav class="nav-links" aria-label="Admin navigation">
+          <a href="index.html">Home</a>
+          <a href="#analytics">Analytics</a>
+          <a href="#orders">Orders</a>
+          <a href="#products">Products</a>
+        </nav>
+        <div class="header-actions">
+          <a class="btn btn-secondary" href="dashboard.html">Customer View</a>
+          <button class="btn btn-primary" id="open-cart">Cart</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="dashboard-shell admin-shell" id="analytics">
+          <div class="dashboard-top">
+            <div>
+              <p class="eyebrow">Real-time insights</p>
+              <h2>Revenue & inventory at a glance</h2>
+            </div>
+            <div class="dashboard-actions">
+              <button class="btn btn-ghost">Download report</button>
+              <button class="btn btn-primary">Add product</button>
+            </div>
+          </div>
+
+          <div class="analytics-grid">
+            <article class="kpi-card">
+              <span class="eyebrow">Revenue</span>
+              <strong>$24.8K</strong>
+              <p>This week performance</p>
+            </article>
+            <article class="kpi-card">
+              <span class="eyebrow">Orders</span>
+              <strong>164</strong>
+              <p>Completed & active</p>
+            </article>
+            <article class="kpi-card">
+              <span class="eyebrow">Customers</span>
+              <strong>539</strong>
+              <p>Active buyers</p>
+            </article>
+            <article class="kpi-card">
+              <span class="eyebrow">Inventory</span>
+              <strong>42 SKUs</strong>
+              <p>Products in stock</p>
+            </article>
+          </div>
+
+          <div class="admin-panels">
+            <section class="summary-panel" id="orders">
+              <div class="section-heading">
+                <p class="eyebrow">Order activity</p>
+                <h3>Order Tracking</h3>
+              </div>
+              <div class="table-shell">
+                <div class="table-row header">
+                  <span>Order</span>
+                  <span>Customer</span>
+                  <span>Status</span>
+                  <span>Revenue</span>
+                </div>
+                <div class="table-row">
+                  <span>#BX-5205</span>
+                  <span>Alya</span>
+                  <span>Delivered</span>
+                  <span>$124</span>
+                </div>
+                <div class="table-row">
+                  <span>#BX-5191</span>
+                  <span>Rian</span>
+                  <span>Preparing</span>
+                  <span>$98</span>
+                </div>
+                <div class="table-row">
+                  <span>#BX-5178</span>
+                  <span>Maya</span>
+                  <span>Dispatched</span>
+                  <span>$72</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="summary-panel" id="products">
+              <div class="section-heading">
+                <p class="eyebrow">Product control</p>
+                <h3>Inventory Management</h3>
+              </div>
+              <div class="inventory-grid">
+                <div class="inventory-card">
+                  <strong>Silk Chocolate Gateau</strong>
+                  <span>18 left</span>
+                </div>
+                <div class="inventory-card">
+                  <strong>Rose Truffle Cake</strong>
+                  <span>12 left</span>
+                </div>
+                <div class="inventory-card">
+                  <strong>Golden Caramel Tart</strong>
+                  <span>24 left</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping cart drawer">
+      <div class="drawer-header">
+        <div>
+          <p class="eyebrow">Your cart</p>
+          <h3>Luxury Orders</h3>
+        </div>
+        <button class="close-drawer" id="close-cart" aria-label="Close cart">×</button>
+      </div>
+      <div class="drawer-body">
+        <div class="cart-item">
+          <div class="cart-thumb"></div>
+          <div>
+            <p>Golden Velvet Cake</p>
+            <span>$86</span>
+          </div>
+        </div>
+      </div>
+      <div class="drawer-footer">
+        <div class="drawer-total">
+          <span>Total</span>
+          <strong>$86</strong>
+        </div>
+        <a class="btn btn-primary" href="checkout.html">Continue to Checkout</a>
+      </div>
+    </aside>
+
+    <div class="overlay" id="drawer-overlay"></div>
+    <script src="script.js"></script>
+  </body>
+</html>

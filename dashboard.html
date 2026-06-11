@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer Dashboard | Bakerry Naichii</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-ring">
+          <span class="brand-mark">B</span>
+        </div>
+        <div class="brand-copy">
+          <p class="eyebrow">Customer Experience</p>
+          <h1>My Dashboard</h1>
+        </div>
+        <nav class="nav-links" aria-label="Dashboard navigation">
+          <a href="index.html">Home</a>
+          <a href="#orders">Orders</a>
+          <a href="#rewards">Rewards</a>
+        </nav>
+        <div class="header-actions">
+          <a class="btn btn-secondary" href="checkout.html">Checkout</a>
+          <button class="btn btn-primary" id="open-cart">Cart</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="dashboard-shell">
+          <div class="dashboard-top">
+            <div>
+              <p class="eyebrow">Welcome back</p>
+              <h2>Track your sweet journey</h2>
+            </div>
+            <div class="dashboard-actions">
+              <button class="btn btn-ghost">View loyalty rewards</button>
+              <button class="btn btn-primary">Repeat order</button>
+            </div>
+          </div>
+
+          <div class="analytics-grid">
+            <article class="kpi-card">
+              <span class="eyebrow">Orders</span>
+              <strong>12</strong>
+              <p>Recent purchases this month</p>
+            </article>
+            <article class="kpi-card">
+              <span class="eyebrow">Loyalty Points</span>
+              <strong>1,860</strong>
+              <p>Redeem for exclusive treats</p>
+            </article>
+            <article class="kpi-card">
+              <span class="eyebrow">Saved Addresses</span>
+              <strong>4</strong>
+              <p>Fast delivery options ready</p>
+            </article>
+            <article class="kpi-card">
+              <span class="eyebrow">Wishlist</span>
+              <strong>8 items</strong>
+              <p>Favorites waiting for you</p>
+            </article>
+          </div>
+
+          <div class="dashboard-content">
+            <section class="summary-panel" id="orders">
+              <div class="section-heading">
+                <p class="eyebrow">Recent orders</p>
+                <h3>Order History</h3>
+              </div>
+              <div class="history-table">
+                <div class="table-row header">
+                  <span>Order</span>
+                  <span>Date</span>
+                  <span>Status</span>
+                  <span>Total</span>
+                </div>
+                <div class="table-row">
+                  <span>#BX-5193</span>
+                  <span>June 8</span>
+                  <span>Delivered</span>
+                  <span>$120</span>
+                </div>
+                <div class="table-row">
+                  <span>#BX-5120</span>
+                  <span>May 29</span>
+                  <span>Preparing</span>
+                  <span>$98</span>
+                </div>
+                <div class="table-row">
+                  <span>#BX-5057</span>
+                  <span>May 14</span>
+                  <span>Delivered</span>
+                  <span>$86</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="summary-panel" id="rewards">
+              <div class="section-heading">
+                <p class="eyebrow">Rewards & gift</p>
+                <h3>Loyalty Points</h3>
+              </div>
+              <div class="reward-card">
+                <div>
+                  <strong>1,860</strong>
+                  <p>Available points</p>
+                </div>
+                <a class="btn btn-primary">Redeem now</a>
+              </div>
+              <div class="reward-details">
+                <div>
+                  <span>Gold Tier</span>
+                  <p>Premium access to seasonal launches.</p>
+                </div>
+                <div>
+                  <span>Next reward</span>
+                  <p>200 points away from free cake upgrade.</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="summary-panel">
+              <div class="section-heading">
+                <p class="eyebrow">Saved convenience</p>
+                <h3>Saved Addresses</h3>
+              </div>
+              <div class="address-list">
+                <div class="address-card">
+                  <strong>Home</strong>
+                  <p>Jl. Sudirman No. 11, Jakarta</p>
+                </div>
+                <div class="address-card">
+                  <strong>Work</strong>
+                  <p>Jl. Thamrin No. 28, Jakarta</p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping cart drawer">
+      <div class="drawer-header">
+        <div>
+          <p class="eyebrow">Your cart</p>
+          <h3>Luxury Orders</h3>
+        </div>
+        <button class="close-drawer" id="close-cart" aria-label="Close cart">×</button>
+      </div>
+      <div class="drawer-body">
+        <div class="cart-item">
+          <div class="cart-thumb"></div>
+          <div>
+            <p>Golden Velvet Cake</p>
+            <span>$86</span>
+          </div>
+        </div>
+      </div>
+      <div class="drawer-footer">
+        <div class="drawer-total">
+          <span>Total</span>
+          <strong>$86</strong>
+        </div>
+        <a class="btn btn-primary" href="checkout.html">Continue to Checkout</a>
+      </div>
+    </aside>
+
+    <div class="overlay" id="drawer-overlay"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
