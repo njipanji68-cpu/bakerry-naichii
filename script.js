@@ -221,14 +221,182 @@ const cartState = {
   total: 0,
 };
 
+// ===== WISHLIST SYSTEM =====
+const wishlistState = {
+  items: [],
+  load: function() {
+    const stored = localStorage.getItem('bakerry_wishlist');
+    this.items = stored ? JSON.parse(stored) : [];
+  },
+  save: function() {
+    localStorage.setItem('bakerry_wishlist', JSON.stringify(this.items));
+  },
+  toggle: function(productName) {
+    const index = this.items.indexOf(productName);
+    if (index > -1) {
+      this.items.splice(index, 1);
+    } else {
+      this.items.push(productName);
+    }
+    this.save();
+    this.updateUI();
+  },
+  has: function(productName) {
+    return this.items.includes(productName);
+  },
+  updateUI: function() {
+    // Update wishlist badge
+    const wishlistBadge = document.querySelector('.wishlist-badge');
+    if (wishlistBadge) {
+      wishlistBadge.textContent = this.items.length;
+      wishlistBadge.style.display = this.items.length > 0 ? 'flex' : 'none';
+    }
+    
+    // Update wishlist buttons on page
+    document.querySelectorAll('.wishlist-btn').forEach(btn => {
+      const productName = btn.getAttribute('data-product');
+      if (this.has(productName)) {
+        btn.classList.add('active');
+        btn.innerHTML = '❤️';
+      } else {
+        btn.classList.remove('active');
+        btn.innerHTML = '🤍';
+      }
+    });
+  }
+};
+
+wishlistState.load();
+wishlistState.updateUI();
+
+const setupWishlistButtons = () => {
+  document.querySelectorAll('.wishlist-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const productName = btn.getAttribute('data-product');
+      wishlistState.toggle(productName);
+    });
+  });
+};
+
+setupWishlistButtons();
+
+// ===== PAYMENT CONFIRMATION MODAL =====
+const createPaymentConfirmationModal = (orderData) => {
+  const modal = document.createElement('div');
+  modal.className = 'payment-modal-overlay';
+  modal.innerHTML = `
+    <div class="payment-modal">
+      <div class="modal-header">
+        <h2>Konfirmasi Pembayaran</h2>
+        <button class="modal-close" data-action="cancel">✕</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="order-details">
+          <div class="detail-row">
+            <span class="label">Order ID:</span>
+            <span class="value">#${orderData.orderId}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Nama:</span>
+            <span class="value">${orderData.name}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Alamat:</span>
+            <span class="value">${orderData.address}, ${orderData.city}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Telepon:</span>
+            <span class="value">${orderData.phone}</span>
+          </div>
+          
+          <div class="divider"></div>
+          
+          <div class="detail-row">
+            <span class="label">Produk:</span>
+            <span class="value">Golden Velvet Cake</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Harga:</span>
+            <span class="value">$${orderData.price}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Pengiriman:</span>
+            <span class="value">$${orderData.shipping}</span>
+          </div>
+          
+          <div class="divider"></div>
+          
+          <div class="detail-row total">
+            <span class="label">Total Pembayaran:</span>
+            <span class="value">$${orderData.total}</span>
+          </div>
+          
+          <div class="detail-row">
+            <span class="label">Metode Pembayaran:</span>
+            <span class="value">${orderData.paymentMethod}</span>
+          </div>
+          
+          <div class="payment-notice">
+            <p>Dengan mengklik "Konfirmasi Pembayaran", Anda setuju untuk menyelesaikan transaksi ini. Dana akan ditarik dari akun Anda.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-action="cancel">Batal</button>
+        <button class="btn btn-primary" data-action="confirm">Konfirmasi Pembayaran</button>
+      </div>
+    </div>
+  `;
+  
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal || e.target.closest('.modal-close')) {
+      modal.remove();
+    }
+  });
+  
+  const confirmBtn = modal.querySelector('[data-action="confirm"]');
+  const cancelBtn = modal.querySelector('[data-action="cancel"]');
+  
+  return { modal, confirmBtn, cancelBtn };
+};
+
+// ===== GENERATE ORDER ID =====
+const generateOrderId = () => {
+  const timestamp = Date.now().toString(36).toUpperCase();
+  const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+  return `BN${timestamp}${random}`;
+};
+
 const renderCart = () => {
   if (!cartBody) {
     console.warn('Cart body element not found');
     return;
   }
-  
   if (cartState.items.length === 0) {
-    cartBody.innerHTML = '<p class="empty-cart">Keranjang kosong. Tambahkan produk terlebih dahulu.</p>';
+  setupWishlistButtons();
+
+  // ===== WISHLIST MODAL =====
+  const wishlistBtn = document.getElementById('open-wishlist');
+  if (wishlistBtn) {
+    wishlistBtn.addEventListener('click', () => {
+      if (wishlistState.items.length === 0) {
+        alert('Wishlist Anda masih kosong. Tambahkan produk favorit terlebih dahulu!');
+        return;
+      }
+    
+      const wishlistList = wishlistState.items.map((item, idx) => {
+        return `${idx + 1}. ${item}`;
+      }).join('\n');
+    
+      alert(`❤️ WISHLIST ANDA ❤️\n\n${wishlistList}\n\nTotal: ${wishlistState.items.length} item(s)`);
+    });
+  }
+
+  // ===== PAYMENT CONFIRMATION MODAL =====
     if (drawerTotalAmount) drawerTotalAmount.textContent = '$0';
     return;
   }
@@ -303,19 +471,71 @@ if (placeOrderBtn) {
       }
     }
     
-    // Show success message
-    alert(`Pesanan berhasil dibuat!\n\nNama: ${name}\nAlamat: ${address}, ${city}\nMetode: ${paymentMethod}\n\nTerima kasih telah berbelanja di Bakerry Naichii!`);
+    // Generate order data
+    const orderId = generateOrderId();
+    const productPrice = 86;
+    const shippingCost = 12;
+    const totalAmount = productPrice + shippingCost;
     
-    // Reset form
-    document.getElementById('name').value = '';
-    document.getElementById('address').value = '';
-    document.getElementById('city').value = '';
-    document.getElementById('phone').value = '';
+    const orderData = {
+      orderId,
+      name,
+      address,
+      city,
+      phone,
+      paymentMethod,
+      price: productPrice,
+      shipping: shippingCost,
+      total: totalAmount,
+      timestamp: new Date().toLocaleString()
+    };
     
-    // Redirect after 1 second
-    setTimeout(() => {
-      window.location.href = 'index.html';
-    }, 1000);
+    // Show payment confirmation modal
+    const { modal, confirmBtn, cancelBtn } = createPaymentConfirmationModal(orderData);
+    document.body.appendChild(modal);
+    
+    confirmBtn.addEventListener('click', () => {
+      // Simulate payment processing
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = 'Memproses...';
+      
+      setTimeout(() => {
+        // Save order to localStorage
+        const orders = JSON.parse(localStorage.getItem('bakerry_orders') || '[]');
+        orders.push({
+          ...orderData,
+          status: 'Confirmed',
+          timestamp: new Date().toISOString()
+        });
+        localStorage.setItem('bakerry_orders', JSON.stringify(orders));
+        
+        // Show success message
+        alert(`✓ PEMBAYARAN BERHASIL!\n\nOrder ID: #${orderId}\nNama: ${name}\nMetode: ${paymentMethod}\nTotal: $${totalAmount}\n\nTerima kasih telah berbelanja di Bakerry Naichii! Pesanan Anda akan segera diproses.`);
+        
+        // Reset form
+        document.getElementById('name').value = '';
+        document.getElementById('address').value = '';
+        document.getElementById('city').value = '';
+        document.getElementById('phone').value = '';
+        
+        // Remove modal
+        modal.remove();
+        
+        // Clear cart
+        cartState.items = [];
+        cartState.total = 0;
+        renderCart();
+        
+        // Redirect after 1.5 seconds
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1500);
+      }, 1500);
+    });
+    
+    cancelBtn.addEventListener('click', () => {
+      modal.remove();
+    });
   });
 }
 
