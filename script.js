@@ -10,16 +10,20 @@ const previewCard = document.getElementById('preview-card');
 const cakeForm = document.getElementById('cake-form');
 
 let reviewIndex = 0;
-const reviewCount = reviewTrack.children.length;
+const reviewCount = reviewTrack?.children?.length || 0;
 
 const openDrawer = () => {
-  cartDrawer.classList.add('open');
-  drawerOverlay.classList.add('open');
+  if (cartDrawer && drawerOverlay) {
+    cartDrawer.classList.add('open');
+    drawerOverlay.classList.add('open');
+  }
 };
 
 const closeDrawer = () => {
-  cartDrawer.classList.remove('open');
-  drawerOverlay.classList.remove('open');
+  if (cartDrawer && drawerOverlay) {
+    cartDrawer.classList.remove('open');
+    drawerOverlay.classList.remove('open');
+  }
 };
 
 openCart?.addEventListener('click', openDrawer);
@@ -27,23 +31,28 @@ closeCart?.addEventListener('click', closeDrawer);
 drawerOverlay?.addEventListener('click', closeDrawer);
 
 const updateReviewPosition = () => {
+  if (!reviewTrack) return;
   reviewTrack.style.transform = `translateX(-${reviewIndex * 100}%)`;
 };
 
 reviewPrev?.addEventListener('click', () => {
+  if (reviewCount === 0) return;
   reviewIndex = Math.max(0, reviewIndex - 1);
   updateReviewPosition();
 });
 
 reviewNext?.addEventListener('click', () => {
+  if (reviewCount === 0) return;
   reviewIndex = Math.min(reviewCount - 1, reviewIndex + 1);
   updateReviewPosition();
 });
 
-setInterval(() => {
-  reviewIndex = (reviewIndex + 1) % reviewCount;
-  updateReviewPosition();
-}, 6500);
+if (reviewCount > 0) {
+  setInterval(() => {
+    reviewIndex = (reviewIndex + 1) % reviewCount;
+    updateReviewPosition();
+  }, 6500);
+}
 
 const countdownTarget = new Date();
 countdownTarget.setHours(countdownTarget.getHours() + 5);
